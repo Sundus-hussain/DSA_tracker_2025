@@ -2,21 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>DSA Flashcards</title>
+  <title>💻 DSA Deck: Crack the Code</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1>DSA Flashcard Practice</h1>
+  <h1 id="heading">💻 DSA Deck: Crack the Code</h1>
 
-  <input id="questionInput" placeholder="Enter question..." />
-  <textarea id="answerInput" placeholder="Enter answer..."></textarea>
-  <button onclick="addCard()">Add Card</button>
-  <button onclick="clearAll()">Clear All</button>
+  <div class="card-form">
+    <input id="questionInput" placeholder="Enter your DSA question..." />
+    <textarea id="answerInput" placeholder="Enter a clean, short explanation or code..."></textarea>
+    <input id="tagInput" placeholder="Tag (e.g. Array, DP, Graph)" />
+    <button onclick="addCard()">➕ Add Flashcard</button>
+    <button onclick="clearAll()">🗑 Clear All</button>
+  </div>
 
   <div class="flashcard" id="flashcard" onclick="flipCard()">
     <div class="question" id="cardQuestion">No cards yet</div>
     <div class="answer" id="cardAnswer">Click to flip</div>
+    <div class="tag" id="cardTag"></div>
   </div>
 
   <div class="buttons">
