@@ -114,4 +114,59 @@ function clearAll() {
   }
 }
 
+function editCard() {
+  if (cards.length === 0) return;
+  const card = cards[current];
+  document.getElementById("questionInput").value = card.question;
+  document.getElementById("answerInput").value = card.answer;
+  document.getElementById("tagInput").value = card.tag;
+
+  const form = document.querySelector(".card-form");
+  let existing = document.getElementById("updateButton");
+  if (!existing) {
+    const updateBtn = document.createElement("button");
+    updateBtn.textContent = "💾 Update Flashcard";
+    updateBtn.id = "updateButton";
+    updateBtn.onclick = () => updateCard(current);
+    form.appendChild(updateBtn);
+  }
+}
+
+function updateCard(index) {
+  const q = document.getElementById("questionInput").value.trim();
+  const a = document.getElementById("answerInput").value.trim();
+  const tag = document.getElementById("tagInput").value.trim();
+
+  if (q && a) {
+    cards[index] = {
+      question: q,
+      answer: a,
+      tag: tag || "Untagged",
+      status: cards[index].status
+    };
+
+    saveCards();
+    showCard(index);
+
+    document.getElementById("questionInput").value = "";
+    document.getElementById("answerInput").value = "";
+    document.getElementById("tagInput").value = "";
+
+    const updateBtn = document.getElementById("updateButton");
+    if (updateBtn) updateBtn.remove();
+  } else {
+    alert("Please enter both question and answer.");
+  }
+}
+
+function deleteCard() {
+  if (cards.length === 0) return;
+  if (confirm("Delete this flashcard?")) {
+    cards.splice(current, 1);
+    saveCards();
+    current = Math.max(current - 1, 0);
+    showCard(current);
+  }
+}
+
 window.onload = loadCards;
