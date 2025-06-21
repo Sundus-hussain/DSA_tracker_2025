@@ -110,3 +110,11 @@ button.needs {
 button:hover {
   opacity: 0.9;
 }
+
+.answer {
+  ...
+  white-space: pre-wrap;
+  font-family: 'Courier New', monospace;
+  ...
+}
+
