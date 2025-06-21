@@ -112,14 +112,14 @@ button:hover {
 }
 
 .answer {
-  margin-top: 15px;
-  font-size: 17px;
-  color: #e0e0e0;
-  display: none;
   white-space: pre-wrap;
   font-family: 'Courier New', monospace;
-  text-align: left;
-  padding: 5px;
   line-height: 1.6;
+  text-align: left;
+  display: none;
 }
+.flashcard.flipped .answer {
+  display: block;
+}
+
 
