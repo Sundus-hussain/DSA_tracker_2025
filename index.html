@@ -1,158 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DSA Practice Tracker</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f9fbfd;
-      padding: 30px;
-      text-align: center;
-    }
-    h1 {
-      color: #34495e;
-    }
-    textarea, input {
-      width: 80%;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    button {
-      padding: 10px 15px;
-      margin: 5px;
-      font-size: 14px;
-      border: none;
-      border-radius: 8px;
-      background-color: #3498db;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    table {
-      width: 80%;
-      margin: 20px auto;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 12px;
-      border: 1px solid #ddd;
-    }
-    td input {
-      width: 100%;
-      border: none;
-      background: transparent;
-      font-size: 15px;
-    }
-    td input:focus {
-      outline: none;
-      background: #f0f8ff;
-    }
-    .practiced {
-      color: green;
-      font-weight: bold;
-    }
-    .needs-work {
-      color: red;
-      font-weight: bold;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <title>DSA Flashcards</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <h1>📘 DSA Tracker — Practice & Encode/Decode</h1>
+  <h1>🧠 DSA Flashcard Practice</h1>
 
-  <textarea id="inputArea" placeholder="Enter your DSA questions, one per line..."></textarea><br>
-  <button onclick="addQuestions()">Add Questions</button>
+  <input id="questionInput" placeholder="Enter question..." />
+  <textarea id="answerInput" placeholder="Enter answer..."></textarea>
+  <button onclick="addCard()">Add Card</button>
   <button onclick="clearAll()">Clear All</button>
 
-  <div id="questionTableContainer"></div>
+  <div class="flashcard" id="flashcard" onclick="flipCard()">
+    <div class="question" id="cardQuestion">No cards yet</div>
+    <div class="answer" id="cardAnswer">Click to flip</div>
+  </div>
 
-  <script>
-    let questions = [];
+  <div class="buttons">
+    <button class="prev" onclick="prevCard()">⬅ Prev</button>
+    <button class="next" onclick="nextCard()">Next ➡</button>
+    <button class="mark" onclick="markPracticed()">✅ Practiced</button>
+    <button class="needs" onclick="markNeedsWork()">❌ Needs Work</button>
+  </div>
 
-    function loadFromStorage() {
-      const saved = localStorage.getItem("dsa_questions");
-      if (saved) {
-        questions = JSON.parse(saved);
-        renderTable();
-      }
-    }
-
-    function saveToStorage() {
-      localStorage.setItem("dsa_questions", JSON.stringify(questions));
-    }
-
-    function addQuestions() {
-      const lines = document.getElementById("inputArea").value.trim().split('\n').filter(l => l);
-      lines.forEach(q => {
-        questions.push({ text: q, status: "Needs Work" });
-      });
-      document.getElementById("inputArea").value = "";
-      saveToStorage();
-      renderTable();
-    }
-
-    function clearAll() {
-      if (confirm("Are you sure you want to clear all questions?")) {
-        questions = [];
-        localStorage.removeItem("dsa_questions");
-        renderTable();
-      }
-    }
-
-    function toggleStatus(index) {
-      questions[index].status = questions[index].status === "Practiced" ? "Needs Work" : "Practiced";
-      saveToStorage();
-      renderTable();
-    }
-
-    function updateQuestion(index, value) {
-      questions[index].text = value;
-      saveToStorage();
-    }
-
-    function renderTable() {
-      if (questions.length === 0) {
-        document.getElementById("questionTableContainer").innerHTML = "<p>No questions added yet.</p>";
-        return;
-      }
-
-      let tableHTML = `
-        <table>
-          <tr>
-            <th>#</th>
-            <th>Question</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-      `;
-
-      questions.forEach((q, index) => {
-        tableHTML += `
-          <tr>
-            <td>${index + 1}</td>
-            <td><input value="${q.text}" oninput="updateQuestion(${index}, this.value)"></td>
-            <td class="${q.status === 'Practiced' ? 'practiced' : 'needs-work'}">${q.status}</td>
-            <td><button onclick="toggleStatus(${index})">
-              ${q.status === 'Practiced' ? 'Mark ❌' : 'Mark ✅'}
-            </button></td>
-          </tr>
-        `;
-      });
-
-      tableHTML += "</table>";
-      document.getElementById("questionTableContainer").innerHTML = tableHTML;
-    }
-
-    // Load from localStorage on first load
-    loadFromStorage();
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
