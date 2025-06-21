@@ -17,28 +17,24 @@ function saveCards() {
 function addCard() {
   const q = document.getElementById("questionInput").value.trim();
   const a = document.getElementById("answerInput").value.trim();
+  const tag = document.getElementById("tagInput").value.trim();
   if (q && a) {
-    cards.push({ question: q, answer: a, status: "Needs Work" });
+    cards.push({ question: q, answer: a, tag: tag || "Untagged", status: "Needs Work" });
     document.getElementById("questionInput").value = "";
     document.getElementById("answerInput").value = "";
+    document.getElementById("tagInput").value = "";
     saveCards();
     showCard(cards.length - 1);
   } else {
-    alert("Please enter both question and answer.");
+    alert("Please fill both question and answer.");
   }
 }
 
 function showCard(index) {
-  const qEl = document.getElementById("cardQuestion");
-  const aEl = document.getElementById("cardAnswer");
-  if (cards.length === 0) {
-    qEl.textContent = "No cards added yet.";
-    aEl.textContent = "Click to flip";
-    return;
-  }
   const card = cards[index];
-  qEl.textContent = `Q${index + 1}: ${card.question}`;
-  aEl.textContent = `📝 ${card.answer} (${card.status})`;
+  document.getElementById("cardQuestion").textContent = `Q${index + 1}: ${card.question}`;
+  document.getElementById("cardAnswer").textContent = `🧠 ${card.answer} \n📌 ${card.status}`;
+  document.getElementById("cardTag").textContent = `#${card.tag}`;
   document.getElementById("flashcard").classList.remove("flipped");
   flipped = false;
 }
@@ -75,7 +71,7 @@ function markNeedsWork() {
 }
 
 function clearAll() {
-  if (confirm("Are you sure you want to delete all flashcards?")) {
+  if (confirm("Delete all flashcards?")) {
     cards = [];
     localStorage.removeItem("dsa_flashcards");
     showCard(0);
