@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f6fc;
+  text-align: center;
+  padding: 30px;
+}
+h1 {
+  color: #2c3e50;
+}
+.flashcard {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+.question {
+  font-size: 20px;
+  font-weight: bold;
+}
+.answer {
+  font-size: 18px;
+  margin-top: 15px;
+  display: none;
+  color: #34495e;
+}
+.flashcard.flipped .answer {
+  display: block;
+}
+.buttons {
+  margin-top: 20px;
+}
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.next,
+.prev {
+  background-color: #3498db;
+  color: white;
+}
+.mark {
+  background-color: #2ecc71;
+  color: white;
+}
+.needs {
+  background-color: #e74c3c;
+  color: white;
+}
+input,
+textarea {
+  width: 80%;
+  margin: 10px auto;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
